@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlideRatingView">
+        <attr name="rating_space" format="dimension"/>
+        <attr name="max_rating" format="integer"/>
+        <attr name="initial_rating" format="float"/>
+    </declare-styleable>
+</resources>
