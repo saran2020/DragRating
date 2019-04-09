@@ -62,23 +62,28 @@ class SlideRatingView @JvmOverloads constructor(
 
     private fun addRatingViews(pos: Int) {
 
-        val imageView = getImageView()
-        imageView.setImageResource(
-            when {
-                pos < floor(currentRating) -> R.drawable.ic_star_full
-                pos == floor(currentRating).toInt() -> R.drawable.ic_star_half
-                else -> R.drawable.ic_star_empty
-            }
-        )
-
+        val imageView = getImageView(pos)
         addView(imageView)
     }
 
-    private fun getImageView(): ImageView {
+    private fun getImageView(pos: Int): ImageView {
         val imageView = ImageView(context)
         val layoutParams = LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
 
         imageView.layoutParams = layoutParams
+        imageView.tag = pos
+        setRatingResource(imageView, pos)
+
         return imageView
+    }
+
+    private fun setRatingResource(imageView: ImageView, pos: Int) {
+        imageView.setImageResource(
+            when {
+                pos < ceil(currentRating) -> assetMap[1f]!!
+                pos == ceil(currentRating).toInt() -> assetMap[currentRating - (pos - 1)]!!
+                else -> assetMap[0f]!!
+            }
+        )
     }
 }
