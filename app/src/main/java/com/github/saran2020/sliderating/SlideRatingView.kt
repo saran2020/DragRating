@@ -69,6 +69,7 @@ class SlideRatingView @JvmOverloads constructor(
     private fun getImageView(pos: Int): ImageView {
         val imageView = ImageView(context)
         val layoutParams = LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
+        layoutParams.marginEnd = if (pos != maxRating) ratingSpace.toInt() else 0
 
         imageView.layoutParams = layoutParams
         imageView.tag = pos
