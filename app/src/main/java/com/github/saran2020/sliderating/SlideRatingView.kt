@@ -25,7 +25,17 @@ class SlideRatingView @JvmOverloads constructor(
             field = value
         }
 
-    private var assetMap = sortedMapOf(
+    private val ratingClickListener = View.OnClickListener {
+        val pos = it.tag as Int
+        currentRating = pos.toFloat()
+
+        for (i in 0 until childCount) {
+            val ratingView = getChildAt(i) as ImageView
+            setRatingResource(ratingView, ratingView.tag as Int)
+        }
+    }
+
+    private var assetMap: SortedMap<Float, Int> = sortedMapOf(
         0f to R.drawable.ic_star_empty,
         0.5f to R.drawable.ic_star_half,
         1f to R.drawable.ic_star_full
@@ -73,6 +83,7 @@ class SlideRatingView @JvmOverloads constructor(
 
         imageView.layoutParams = layoutParams
         imageView.tag = pos
+        imageView.setOnClickListener(ratingClickListener)
         setRatingResource(imageView, pos)
 
         return imageView
