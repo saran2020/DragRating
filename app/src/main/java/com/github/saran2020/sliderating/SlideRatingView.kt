@@ -3,8 +3,10 @@ package com.github.saran2020.sliderating
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
+import android.view.View
 import android.widget.ImageView
-import kotlin.math.floor
+import java.util.*
+import kotlin.math.ceil
 
 class SlideRatingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -15,7 +17,9 @@ class SlideRatingView @JvmOverloads constructor(
     private var currentRating = 0f
         set(value) {
             if (value > maxRating) {
-                throw IllegalArgumentException("Initial Rating cannot be more than max rating")
+                throw IllegalArgumentException("Rating cannot be more than max rating")
+            } else if (value < 0) {
+                throw IllegalArgumentException("Rating cannot be less than 0")
             }
 
             field = value
