@@ -3,15 +3,22 @@ package com.github.saran2020.sliderating
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
-import android.view.View
+import android.util.Log
+import android.view.MotionEvent
+import android.view.ViewConfiguration
+import android.view.ViewGroup
 import android.widget.ImageView
 import java.util.*
 import kotlin.math.ceil
 
-class SlideRatingView @JvmOverloads constructor(
+
+open class SlideRatingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayoutCompat(context, attrs, defStyleAttr) {
 
+    private var mIsDragging = false
+    private var mScaledTouchSlop = 0
+    private var mTouchDownX = 0f
     private var ratingSpace = 0.0f
     private var maxRating = 5
     private var currentRating = 0f
@@ -24,16 +31,6 @@ class SlideRatingView @JvmOverloads constructor(
 
             field = value
         }
-
-    private val ratingClickListener = View.OnClickListener {
-        val pos = it.tag as Int
-        currentRating = pos.toFloat()
-
-        for (i in 0 until childCount) {
-            val ratingView = getChildAt(i) as ImageView
-            setRatingResource(ratingView, ratingView.tag as Int)
-        }
-    }
 
     private var assetMap: SortedMap<Float, Int> = sortedMapOf(
         0f to R.drawable.ic_star_empty,
@@ -61,8 +58,97 @@ class SlideRatingView @JvmOverloads constructor(
             typedArray.recycle()
         }
 
+        isClickable = true
+        isFocusable = true
+        mScaledTouchSlop = ViewConfiguration.get(context).scaledTouchSlop
         addViews()
     }
+
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (!isEnabled) {
+            return false
+        }
+
+        when (event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                if (isInScrollingContainer()) {
+                    mTouchDownX = event.x
+                } else {
+                    startDrag(event)
+                }
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                if (mIsDragging) {
+                    trackTouchEvent(event)
+                } else {
+                    val x = event.x
+                    if (Math.abs(x - mTouchDownX) > mScaledTouchSlop) {
+                        startDrag(event)
+                    }
+                }
+            }
+
+            MotionEvent.ACTION_UP -> {
+                if (mIsDragging) {
+                    trackTouchEvent(event)
+                    onStopTrackingTouch()
+                    isPressed = false
+                } else {
+                    // Touch up when we never crossed the touch slop threshold should
+                    // be interpreted as a tap-seek to that location.
+                    onStartTrackingTouch()
+                    trackTouchEvent(event)
+                    onStopTrackingTouch()
+                }
+            }
+
+            MotionEvent.ACTION_CANCEL -> {
+                if (mIsDragging) {
+                    onStopTrackingTouch()
+                    isPressed = false
+                }
+            }
+        }
+
+        return true
+    }
+
+    private fun startDrag(event: MotionEvent) {
+        isPressed = true
+        onStartTrackingTouch()
+        trackTouchEvent(event)
+    }
+
+
+    private fun isInScrollingContainer(): Boolean {
+        var p = parent
+        while (p != null && p is ViewGroup) {
+            if (p.shouldDelayChildPressedState()) {
+                return true
+            }
+            p = p.parent
+        }
+
+        return false
+    }
+
+    protected fun trackTouchEvent(event: MotionEvent) {
+        val x = Math.round(event.x)
+        val y = Math.round(event.y)
+
+        Log.d("buggy_bug", "x = $x y = $y")
+    }
+
+    private fun onStartTrackingTouch() {
+        mIsDragging = true
+    }
+
+    private fun onStopTrackingTouch() {
+        mIsDragging = false
+    }
+
 
     private fun addViews() {
         for (i in 1..maxRating) {
@@ -83,7 +169,6 @@ class SlideRatingView @JvmOverloads constructor(
 
         imageView.layoutParams = layoutParams
         imageView.tag = pos
-        imageView.setOnClickListener(ratingClickListener)
         setRatingResource(imageView, pos)
 
         return imageView
