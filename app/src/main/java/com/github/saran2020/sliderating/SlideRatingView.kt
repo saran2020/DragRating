@@ -31,7 +31,16 @@ open class SlideRatingView @JvmOverloads constructor(
                 throw IllegalArgumentException("Rating cannot be less than 0")
             }
 
-            field = roundOffRating(value)
+            val previousRating = field
+            val newRating = roundOffRating(value)
+
+            if (previousRating == newRating) {
+                return
+            }
+
+            field = newRating
+            callback?.onRatingChanged(previousRating, field)
+
             Log.d("buggy_bug", "current rating $currentRating")
 
             for (i in 0..childCount) {
