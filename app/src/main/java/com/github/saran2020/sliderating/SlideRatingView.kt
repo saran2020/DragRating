@@ -53,6 +53,8 @@ open class SlideRatingView @JvmOverloads constructor(
         return value
     }
 
+    // Todo: Make this drawable based instead of resource Id based
+    //  (Will make it more convenient for the developer)
     private var assetMap: SortedMap<Float, Int> = sortedMapOf(
         0f to R.drawable.ic_star_empty,
         0.5f to R.drawable.ic_star_half,
