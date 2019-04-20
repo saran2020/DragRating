@@ -181,7 +181,7 @@ open class SlideRatingView @JvmOverloads constructor(
 
 
     private fun addViews() {
-        for (i in 1..maxRating) {
+        for (i in 0 until maxRating) {
             addRatingViews(i)
         }
     }
@@ -195,7 +195,7 @@ open class SlideRatingView @JvmOverloads constructor(
     private fun getImageView(pos: Int): ImageView {
         val imageView = ImageView(context)
         val layoutParams = LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
-        layoutParams.marginEnd = if (pos != maxRating) ratingSpace.toInt() else 0
+        layoutParams.marginEnd = if (pos != (maxRating - 1)) ratingSpace.toInt() else 0
 
         imageView.layoutParams = layoutParams
         setRatingResource(imageView, pos)
