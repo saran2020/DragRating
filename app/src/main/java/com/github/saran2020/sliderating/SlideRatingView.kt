@@ -203,11 +203,16 @@ open class SlideRatingView @JvmOverloads constructor(
         return imageView
     }
 
-    private fun setRatingResource(imageView: ImageView, pos: Int) {
+    private fun setRatingResource(imageView: ImageView, index: Int) {
+        val pos = index + 1
+
         imageView.setImageResource(
             when {
-                pos < ceil(currentRating) -> assetMap[1f]!!
-                pos == ceil(currentRating).toInt() -> assetMap[currentRating - (pos - 1)]!!
+                pos <= floor(currentRating) -> assetMap[1f]!!
+                pos == ceil(currentRating).toInt() -> {
+                    val decimal = currentRating - floor(currentRating)
+                    assetMap[decimal]!!
+                }
                 else -> assetMap[0f]!!
             }
         )
