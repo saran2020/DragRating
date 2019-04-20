@@ -198,7 +198,6 @@ open class SlideRatingView @JvmOverloads constructor(
         layoutParams.marginEnd = if (pos != maxRating) ratingSpace.toInt() else 0
 
         imageView.layoutParams = layoutParams
-        imageView.tag = pos
         setRatingResource(imageView, pos)
 
         return imageView
