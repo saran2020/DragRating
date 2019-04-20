@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -136,9 +137,18 @@ open class SlideRatingView @JvmOverloads constructor(
 
     protected fun trackTouchEvent(event: MotionEvent) {
         val x = Math.round(event.x)
-        val y = Math.round(event.y)
 
-        Log.d("buggy_bug", "x = $x y = $y")
+        for (i in 0..childCount) {
+            val child: View = getChildAt(i) ?: return
+
+            if (x > child.left && x < (child.left + child.width)) {
+
+                val dragOnView = x - child.left
+                val ratioCross = dragOnView / child.width.toFloat()
+
+                currentRating = i + ratioCross
+            }
+        }
     }
 
     private fun onStartTrackingTouch() {
