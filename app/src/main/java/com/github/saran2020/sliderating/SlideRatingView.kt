@@ -42,6 +42,8 @@ open class SlideRatingView @JvmOverloads constructor(
             }
         }
 
+    public var callback: RatingChangeCallback? = null
+
     private fun roundOffRating(value: Float): Float {
         val decimal = value - floor(value)
         for (mutableEntry in assetMap) {
@@ -218,5 +220,9 @@ open class SlideRatingView @JvmOverloads constructor(
                 else -> assetMap[0f]!!
             }
         )
+    }
+
+    public interface RatingChangeCallback {
+        fun onRatingChanged(previous: Float, new: Float)
     }
 }
