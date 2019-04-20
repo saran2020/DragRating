@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import java.util.*
 import kotlin.math.ceil
+import kotlin.math.floor
 
 
 open class SlideRatingView @JvmOverloads constructor(
@@ -30,8 +31,27 @@ open class SlideRatingView @JvmOverloads constructor(
                 throw IllegalArgumentException("Rating cannot be less than 0")
             }
 
-            field = value
+            field = roundOffRating(value)
+            Log.d("buggy_bug", "current rating $currentRating")
+
+            for (i in 0..childCount) {
+                val childAt = getChildAt(i)
+                if (childAt != null) {
+                    setRatingResource(childAt as ImageView, i)
+                }
+            }
         }
+
+    private fun roundOffRating(value: Float): Float {
+        val decimal = value - floor(value)
+        for (mutableEntry in assetMap) {
+            if (mutableEntry.key >= decimal) {
+                return floor(value) + mutableEntry.key
+            }
+        }
+
+        return value
+    }
 
     private var assetMap: SortedMap<Float, Int> = sortedMapOf(
         0f to R.drawable.ic_star_empty,
