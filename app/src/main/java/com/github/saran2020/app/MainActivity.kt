@@ -1,8 +1,9 @@
-package com.github.saran2020.sliderating
+package com.github.saran2020.app
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
+import com.github.saran2020.sliderating.SlideRatingView
 
 class MainActivity : AppCompatActivity() {
 
