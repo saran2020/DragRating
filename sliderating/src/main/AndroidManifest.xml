@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.github.saran2020.sliderating"/>
+<manifest package="com.github.saran2020.sliderating" />
