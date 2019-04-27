@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SlideRating</string>
+
+    <declare-styleable name="SlideRatingView">
+        <attr name="rating_space" format="dimension"/>
+        <attr name="max_rating" format="integer"/>
+        <attr name="initial_rating" format="float"/>
+    </declare-styleable>
+
+</resources>
