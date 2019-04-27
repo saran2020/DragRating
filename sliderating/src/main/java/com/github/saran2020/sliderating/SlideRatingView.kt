@@ -97,7 +97,6 @@ open class SlideRatingView @JvmOverloads constructor(
         addViews()
     }
 
-
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (!isEnabled) {
             return false
@@ -154,7 +153,6 @@ open class SlideRatingView @JvmOverloads constructor(
         trackTouchEvent(event)
     }
 
-
     private fun isInScrollingContainer(): Boolean {
         var p = parent
         while (p != null && p is ViewGroup) {
@@ -190,7 +188,6 @@ open class SlideRatingView @JvmOverloads constructor(
     private fun onStopTrackingTouch() {
         mIsDragging = false
     }
-
 
     private fun addViews() {
         for (i in 0 until maxRating) {
