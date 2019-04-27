@@ -9,10 +9,9 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageView
-import java.util.*
+import java.util.SortedMap
 import kotlin.math.ceil
 import kotlin.math.floor
-
 
 open class SlideRatingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
