@@ -1,6 +1,8 @@
 package com.github.saran2020.sliderating
 
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.util.Log
@@ -63,12 +65,12 @@ open class SlideRatingView @JvmOverloads constructor(
         return value
     }
 
-    // Todo: Make this drawable based instead of resource Id based
-    //  (Will make it more convenient for the developer)
-    private var assetMap: SortedMap<Float, Int> = sortedMapOf(
-        0f to R.drawable.ic_star_empty,
-        0.5f to R.drawable.ic_star_half,
-        1f to R.drawable.ic_star_full
+    private var assetMap: SortedMap<Float, Drawable> = convertToDrawableMap(
+        mapOf(
+            0f to R.drawable.ic_star_empty,
+            0.5f to R.drawable.ic_star_half,
+            1f to R.drawable.ic_star_full
+        )
     )
 
     init {
@@ -215,7 +217,7 @@ open class SlideRatingView @JvmOverloads constructor(
     private fun setRatingResource(imageView: ImageView, index: Int) {
         val pos = index + 1
 
-        imageView.setImageResource(
+        imageView.setImageDrawable(
             when {
                 pos <= floor(currentRating) -> assetMap[1f]!!
                 pos == ceil(currentRating).toInt() -> {
@@ -227,7 +229,32 @@ open class SlideRatingView @JvmOverloads constructor(
         )
     }
 
+    private fun convertToDrawableMap(map: Map<Float, Int>): SortedMap<Float, Drawable> {
+
+        val sortedMap: SortedMap<Float, Drawable> = sortedMapOf()
+        for (entry in map) {
+            val drawable = ResourcesCompat.getDrawable(resources, entry.value, null)!!
+            sortedMap[entry.key] = drawable
+        }
+
+        return sortedMap
+    }
+
+    fun getRating(): Float = currentRating
+
+    fun setRating(rating: Float) {
+        currentRating = rating
+    }
+
+    fun setDrawableAssetMap(map: Map<Float, Drawable>) {
+        assetMap = map.toSortedMap()
+    }
+
+    fun setDrawableResourceAssetMap(map: Map<Float, Int>) {
+        assetMap = convertToDrawableMap(map)
+    }
+
     interface RatingChangeCallback {
-        fun onRatingChanged(previous: Float, new: Float)
+        fun onRatingChanged(previous: Float, current: Float)
     }
 }
