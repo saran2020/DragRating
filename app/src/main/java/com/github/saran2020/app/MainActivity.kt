@@ -7,16 +7,19 @@ import com.github.saran2020.sliderating.SlideRatingView
 
 class MainActivity : AppCompatActivity() {
 
+    private var ratingView: SlideRatingView? = null
+    private var ratingTextView: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val ratingView = findViewById<SlideRatingView>(R.id.slide_rating)
-        val ratingTextView = findViewById<TextView>(R.id.rating_text)
+        ratingView = findViewById(R.id.slide_rating)
+        ratingTextView = findViewById(R.id.rating_text)
 
-        ratingView.callback = object : SlideRatingView.RatingChangeCallback {
+        ratingView?.callback = object : SlideRatingView.RatingChangeCallback {
             override fun onRatingChanged(previous: Float, new: Float) {
-                ratingTextView.text = "$new"
+                ratingTextView?.text = "$new"
             }
         }
     }
