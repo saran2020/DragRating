@@ -255,6 +255,6 @@ open class SlideRatingView @JvmOverloads constructor(
     }
 
     interface RatingChangeCallback {
-        fun onRatingChanged(previous: Float, new: Float)
+        fun onRatingChanged(previous: Float, current: Float)
     }
 }
