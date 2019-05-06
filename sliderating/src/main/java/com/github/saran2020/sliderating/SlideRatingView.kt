@@ -248,10 +248,18 @@ open class SlideRatingView @JvmOverloads constructor(
 
     fun setDrawableAssetMap(map: Map<Float, Drawable>) {
         assetMap = map.toSortedMap()
+
+        // Need to redraw since the asset have been updated. But, no worries!!
+        // currentRating's setter will take care
+        currentRating = currentRating
     }
 
     fun setDrawableResourceAssetMap(map: Map<Float, Int>) {
         assetMap = convertToDrawableMap(map)
+
+        // Need to redraw since the asset have been updated. But, no worries!!
+        // currentRating's setter will take care
+        currentRating = currentRating
     }
 
     interface RatingChangeCallback {
