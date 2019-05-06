@@ -11,8 +11,8 @@ class MainActivity : AppCompatActivity() {
     private var ratingView: SlideRatingView? = null
     private var ratingTextView: TextView? = null
 
-    private var ratingView5In1: SlideRatingView? = null
-    private var ratingTextView5In1: TextView? = null
+    private var ratingViewHeart: SlideRatingView? = null
+    private var ratingTextViewHeart: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,23 +27,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        ratingView5In1 = findViewById(R.id.slide_rating_5_in_1)
-        ratingTextView5In1 = findViewById(R.id.rating_text_5_in_1)
+        ratingViewHeart = findViewById(R.id.slide_rating_heart)
+        ratingTextViewHeart = findViewById(R.id.rating_text_heart)
 
-        ratingView5In1?.setDrawableResourceAssetMap(
+        ratingViewHeart?.setDrawableResourceAssetMap(
             mapOf(
-                0f to R.drawable.ic_hearts_with_0_filled,
-                0.2f to R.drawable.ic_hearts_with_1_filled,
-                0.4f to R.drawable.ic_hearts_with_2_filled,
-                0.6f to R.drawable.ic_hearts_with_3_filled,
-                0.8f to R.drawable.ic_hearts_with_4_filled,
-                1f to R.drawable.ic_hearts_with_5_filled
+                0f to R.drawable.ic_empty_filled_heart,
+                0.5f to R.drawable.ic_half_filled_heart,
+                1f to R.drawable.ic_filled_heart
             )
         )
 
-        ratingView5In1?.callback = object : SlideRatingView.RatingChangeCallback {
+        ratingViewHeart?.callback = object : SlideRatingView.RatingChangeCallback {
             override fun onRatingChanged(previous: Float, current: Float) {
-                ratingTextView5In1?.text = "$current"
+                ratingTextViewHeart?.text = "$current"
             }
         }
     }
