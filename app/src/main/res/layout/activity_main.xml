@@ -28,4 +28,25 @@
         android:text="@integer/initial_rating"
         android:textSize="20sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Max rating 1 and all the multiples handled via asset" />
+
+    <com.github.saran2020.sliderating.SlideRatingView
+        android:id="@+id/slide_rating_5_in_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:initial_rating="@integer/initial_rating_5_in_1"
+        app:max_rating="@integer/max_rating_5_in_1" />
+
+    <TextView
+        android:id="@+id/rating_text_5_in_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@integer/initial_rating_5_in_1"
+        android:textSize="20sp" />
+
 </LinearLayout>
