@@ -1,5 +1,10 @@
 <resources>
+
     <string name="app_name">SlideRating</string>
+
     <item name="initial_rating" format="float" type="integer">2.5</item>
     <item name="max_rating" format="integer" type="integer">5</item>
+    <item name="initial_rating_5_in_1" format="float" type="integer">0.4</item>
+    <item name="max_rating_5_in_1" format="integer" type="integer">1</item>
+
 </resources>
