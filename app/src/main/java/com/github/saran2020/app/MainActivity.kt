@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
         ratingTextView = findViewById(R.id.rating_text)
 
         ratingView?.callback = object : SlideRatingView.RatingChangeCallback {
-            override fun onRatingChanged(previous: Float, new: Float) {
-                ratingTextView?.text = "$new"
+            override fun onRatingChanged(previous: Float, current: Float) {
+                ratingTextView?.text = "$current"
             }
         }
 
