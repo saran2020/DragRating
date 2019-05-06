@@ -43,14 +43,17 @@ open class SlideRatingView @JvmOverloads constructor(
             callback?.onRatingChanged(previousRating, field)
 
             Log.d("buggy_bug", "current rating $currentRating")
+            refreshRatingView()
+        }
 
-            for (i in 0..childCount) {
-                val childAt = getChildAt(i)
-                if (childAt != null) {
-                    setRatingResource(childAt as ImageView, i)
-                }
+    private fun refreshRatingView() {
+        for (i in 0..childCount) {
+            val childAt = getChildAt(i)
+            if (childAt != null) {
+                setRatingResource(childAt as ImageView, i)
             }
         }
+    }
 
     var callback: RatingChangeCallback? = null
 
@@ -249,17 +252,15 @@ open class SlideRatingView @JvmOverloads constructor(
     fun setDrawableAssetMap(map: Map<Float, Drawable>) {
         assetMap = map.toSortedMap()
 
-        // Need to redraw since the asset have been updated. But, no worries!!
-        // currentRating's setter will take care
-        currentRating = currentRating
+        // Need to redraw since the asset have been updated.
+        refreshRatingView()
     }
 
     fun setDrawableResourceAssetMap(map: Map<Float, Int>) {
         assetMap = convertToDrawableMap(map)
 
-        // Need to redraw since the asset have been updated. But, no worries!!
-        // currentRating's setter will take care
-        currentRating = currentRating
+        // Need to redraw since the asset have been updated.
+        refreshRatingView()
     }
 
     interface RatingChangeCallback {
