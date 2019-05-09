@@ -11,6 +11,9 @@ class MainActivity : AppCompatActivity() {
     private var ratingView: SlideRatingView? = null
     private var ratingTextView: TextView? = null
 
+    private var ratingViewHeart: SlideRatingView? = null
+    private var ratingTextViewHeart: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,8 +22,25 @@ class MainActivity : AppCompatActivity() {
         ratingTextView = findViewById(R.id.rating_text)
 
         ratingView?.callback = object : SlideRatingView.RatingChangeCallback {
-            override fun onRatingChanged(previous: Float, new: Float) {
-                ratingTextView?.text = "$new"
+            override fun onRatingChanged(previous: Float, current: Float) {
+                ratingTextView?.text = "$current"
+            }
+        }
+
+        ratingViewHeart = findViewById(R.id.slide_rating_heart)
+        ratingTextViewHeart = findViewById(R.id.rating_text_heart)
+
+        ratingViewHeart?.setDrawableResourceAssetMap(
+            mapOf(
+                0f to R.drawable.ic_empty_filled_heart,
+                0.5f to R.drawable.ic_half_filled_heart,
+                1f to R.drawable.ic_filled_heart
+            )
+        )
+
+        ratingViewHeart?.callback = object : SlideRatingView.RatingChangeCallback {
+            override fun onRatingChanged(previous: Float, current: Float) {
+                ratingTextViewHeart?.text = "$current"
             }
         }
     }
