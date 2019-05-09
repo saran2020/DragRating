@@ -57,12 +57,31 @@ open class SlideRatingView @JvmOverloads constructor(
 
     var callback: RatingChangeCallback? = null
 
+    // We multiply the decimal value by 100 so that we can convert the
+    // decimal to ints It gives us more control on rounding off to the
+    // nearest available.
     private fun roundOffRating(value: Float): Float {
-        val decimal = value - floor(value)
-        for (mutableEntry in assetMap) {
-            if (mutableEntry.key >= decimal) {
-                return floor(value) + mutableEntry.key
+        val decimalMultiplied = (value - floor(value)) * 100
+
+        val keys = assetMap.keys.toList()
+        var previous = 0
+        for (current in 1 until assetMap.size) {
+            val currentMultiple = keys[current] * 100
+            val previousMultiple = keys[previous] * 100
+
+            if (decimalMultiplied > previousMultiple && decimalMultiplied < currentMultiple) {
+                val differPreviousMultiple = decimalMultiplied - previousMultiple
+                val differCurrentMultiple = currentMultiple - decimalMultiplied
+
+                val minDifference = Math.min(differCurrentMultiple, differPreviousMultiple)
+                return when {
+                    differPreviousMultiple == differCurrentMultiple -> floor(value) + keys[current]
+                    minDifference == differPreviousMultiple -> floor(value) + keys[previous]
+                    else -> floor(value) + keys[current]
+                }
             }
+
+            previous = current
         }
 
         return value
