@@ -1,7 +1,8 @@
-###### SlideRating
----
+# SlideRating
 
 Slide rating is a rating view inspired of Slide Review from Book My Show app. The purpose of this library is to create simple and easy to use Slide Rating which will allow you to supply custom assets.
+
+![](assets/demo.gif)
 
 To include this library you will have to add
 ```Gradle
@@ -20,12 +21,16 @@ dependencies {
     app:rating_space="8dp"
     app:max_rating="5" />
 ```
+`initial_rating` - Is used to set the initial rating of the file.  
+`max_rating` - Is used to set the maximum allowed number of rating. The number you provide here is the number of stars that will be drawn.  
+`rating_space` - Can be used to control the space between two star view.
+
 To get the current rating use the method `getRating()` and to set the rating use method `setRating(3.5f)`.
 
 
-If you want to provide custom asset for the view, you need to set a `Map` with the multiplier for the asset and the asset like shown below.
+To provide custom asset for the view, you need to set a `Map` with the multiplier for the asset and the asset like shown below.
 
-For passing asset resource id in kotlin
+Passing custom asset resource id
 ```kotlin
 ratingView.setDrawableResourceAssetMap(
     mapOf(
@@ -36,7 +41,7 @@ ratingView.setDrawableResourceAssetMap(
 )
 ```
 
-For passing asset as `Drawable` in kotlin
+Passing asset as `Drawable` in kotlin
 ```kotlin
 ratingView.setDrawableAssetMap(
     mapOf(
@@ -46,9 +51,9 @@ ratingView.setDrawableAssetMap(
     )
 )
 ```
-**NOTE: You should only provide the multiplier between 0 and 1. If the current rating is 1.5 it will automatically fill one rating with the asset mapped with `1f` and one rating with asset mapped with `0.5f`**
+**NOTE: You should only provide the multiplier between 0 and 1. If the current rating is 1.5 it will automatically fill one star with the asset mapped to `1f` and one star with asset mapped to `0.5f`**
 
-To get a callback when user is sliding the rating 
+Callback when user is dragging the `SlideRatingView`
 ```kotlin
 ratingView.callback = object : SlideRatingView.RatingChangeCallback {
     override fun onRatingChanged(previous: Float, new: Float) {
