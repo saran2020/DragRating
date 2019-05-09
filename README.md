@@ -7,7 +7,7 @@ Slide rating is a rating view inspired of Slide Review from Book My Show app. Th
 To include this library you will have to add
 ```Gradle
 dependencies {
-    implementation 'com.github.saran2020:SlideRating:0.2'
+    implementation 'com.github.saran2020:SlideRating:1.0'
 }
 ```
 
