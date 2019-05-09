@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="Rating view with custom assets (initial = 7.5, max=10)" />
+        android:text="With custom assets (initial = 7.5, max=10, space = 8dp)" />
 
     <com.github.saran2020.sliderating.SlideRatingView
         android:id="@+id/slide_rating_heart"
