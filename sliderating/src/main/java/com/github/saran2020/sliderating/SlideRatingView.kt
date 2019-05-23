@@ -43,23 +43,45 @@ open class SlideRatingView @JvmOverloads constructor(
             callback?.onRatingChanged(previousRating, field)
 
             Log.d("buggy_bug", "current rating $currentRating")
+            refreshRatingView()
+        }
 
-            for (i in 0..childCount) {
-                val childAt = getChildAt(i)
-                if (childAt != null) {
-                    setRatingResource(childAt as ImageView, i)
-                }
+    private fun refreshRatingView() {
+        for (i in 0..childCount) {
+            val childAt = getChildAt(i)
+            if (childAt != null) {
+                setRatingResource(childAt as ImageView, i)
             }
         }
+    }
 
     var callback: RatingChangeCallback? = null
 
+    // We multiply the decimal value by 100 so that we can convert the
+    // decimal to ints It gives us more control on rounding off to the
+    // nearest available.
     private fun roundOffRating(value: Float): Float {
-        val decimal = value - floor(value)
-        for (mutableEntry in assetMap) {
-            if (mutableEntry.key >= decimal) {
-                return floor(value) + mutableEntry.key
+        val decimalMultiplied = (value - floor(value)) * 100
+
+        val keys = assetMap.keys.toList()
+        var previous = 0
+        for (current in 1 until assetMap.size) {
+            val currentMultiple = keys[current] * 100
+            val previousMultiple = keys[previous] * 100
+
+            if (decimalMultiplied > previousMultiple && decimalMultiplied < currentMultiple) {
+                val differPreviousMultiple = decimalMultiplied - previousMultiple
+                val differCurrentMultiple = currentMultiple - decimalMultiplied
+
+                val minDifference = Math.min(differCurrentMultiple, differPreviousMultiple)
+                return when {
+                    differPreviousMultiple == differCurrentMultiple -> floor(value) + keys[current]
+                    minDifference == differPreviousMultiple -> floor(value) + keys[previous]
+                    else -> floor(value) + keys[current]
+                }
             }
+
+            previous = current
         }
 
         return value
@@ -248,10 +270,16 @@ open class SlideRatingView @JvmOverloads constructor(
 
     fun setDrawableAssetMap(map: Map<Float, Drawable>) {
         assetMap = map.toSortedMap()
+
+        // Need to redraw since the asset have been updated.
+        refreshRatingView()
     }
 
     fun setDrawableResourceAssetMap(map: Map<Float, Int>) {
         assetMap = convertToDrawableMap(map)
+
+        // Need to redraw since the asset have been updated.
+        refreshRatingView()
     }
 
     interface RatingChangeCallback {
