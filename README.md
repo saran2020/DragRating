@@ -1,5 +1,3 @@
-This is my first android library. Show some ![Love]( assets/red_heart.png "Love") by clicking on the ![Star]( assets/github_star.png "Star") on top.
-
 # SlideRating
 
 Slide rating is a rating view inspired of Slide Review from Book My Show app. The purpose of this library is to create simple and easy to use Slide Rating which will allow you to supply custom assets.
