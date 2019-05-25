@@ -1,4 +1,4 @@
-package com.github.saran2020.sliderating
+package com.github.saran2020.dragrating
 
 import android.content.Context
 import android.graphics.drawable.Drawable

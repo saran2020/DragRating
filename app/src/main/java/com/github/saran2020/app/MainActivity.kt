@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.TextView
-import com.github.saran2020.sliderating.SlideRatingView
+import com.github.saran2020.dragrating.SlideRatingView
 
 class MainActivity : AppCompatActivity() {
 
