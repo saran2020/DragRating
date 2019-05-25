@@ -1,2 +1,2 @@
-include ':app', ':sliderating'
+include ':app', ':dragrating'
 rootProject.name = 'DragRating'
