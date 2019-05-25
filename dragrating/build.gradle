@@ -3,19 +3,19 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 ext {
-    bintrayRepo = 'SlideRating'
+    bintrayRepo = 'DragRating'
     bintrayName = 'com.github.saran2020'
 
-    libraryName = 'SlideRating'
+    libraryName = 'DragRating'
 
     publishedGroupId = 'com.github.saran2020'
-    artifact = 'SlideRating'
+    artifact = 'DragRating'
     libraryVersion = project.versionName
 
     libraryDescription = project.libraryDescription
 
-    siteUrl = 'https://github.com/saran2020/SlideRating'
-    gitUrl = 'https://github.com/saran2020/SlideRating.git'
+    siteUrl = 'https://github.com/saran2020/DragRating'
+    gitUrl = 'https://github.com/saran2020/DragRating.git'
 
     developerId = 'saran2020'
     developerName = 'Saran Sankaran'
