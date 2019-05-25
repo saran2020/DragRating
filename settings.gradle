@@ -1,1 +1,2 @@
 include ':app', ':sliderating'
+rootProject.name = 'DragRating'
