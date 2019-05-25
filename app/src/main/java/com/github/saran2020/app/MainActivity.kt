@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.TextView
-import com.github.saran2020.dragrating.SlideRatingView
+import com.github.saran2020.dragrating.DragRatingView
 
 class MainActivity : AppCompatActivity() {
 
-    private var ratingView: SlideRatingView? = null
+    private var ratingView: DragRatingView? = null
     private var ratingTextView: TextView? = null
 
-    private var ratingViewHeart: SlideRatingView? = null
+    private var ratingViewHeart: DragRatingView? = null
     private var ratingTextViewHeart: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         ratingView = findViewById(R.id.slide_rating)
         ratingTextView = findViewById(R.id.rating_text)
 
-        ratingView?.callback = object : SlideRatingView.RatingChangeCallback {
+        ratingView?.callback = object : DragRatingView.RatingChangeCallback {
             override fun onRatingChanged(previous: Float, current: Float) {
                 ratingTextView?.text = "$current"
             }
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        ratingViewHeart?.callback = object : SlideRatingView.RatingChangeCallback {
+        ratingViewHeart?.callback = object : DragRatingView.RatingChangeCallback {
             override fun onRatingChanged(previous: Float, current: Float) {
                 ratingTextViewHeart?.text = "$current"
             }

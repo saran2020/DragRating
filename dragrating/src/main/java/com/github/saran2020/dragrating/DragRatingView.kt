@@ -15,7 +15,7 @@ import java.util.SortedMap
 import kotlin.math.ceil
 import kotlin.math.floor
 
-open class SlideRatingView @JvmOverloads constructor(
+open class DragRatingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayoutCompat(context, attrs, defStyleAttr) {
 
@@ -99,17 +99,17 @@ open class SlideRatingView @JvmOverloads constructor(
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(
                 it,
-                R.styleable.SlideRatingView, 0, 0
+                R.styleable.DragRatingView, 0, 0
             )
 
             ratingSpace = typedArray.getDimension(
-                R.styleable.SlideRatingView_rating_space, 0f
+                R.styleable.DragRatingView_rating_space, 0f
             )
             maxRating = typedArray.getInt(
-                R.styleable.SlideRatingView_max_rating, 5
+                R.styleable.DragRatingView_max_rating, 5
             )
             currentRating = typedArray.getFloat(
-                R.styleable.SlideRatingView_initial_rating, 0f
+                R.styleable.DragRatingView_initial_rating, 0f
             )
 
             typedArray.recycle()
