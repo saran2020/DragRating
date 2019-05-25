@@ -7,7 +7,7 @@ Drag rating is a rating view inspired of Drag Review from Book My Show app. The 
 To include this library you will have to add
 ```Gradle
 dependencies {
-    implementation 'com.github.saran2020:DragRating:1.0'
+    implementation 'com.github.saran2020:DragRating:2.0'
 }
 ```
 
