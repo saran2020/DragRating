@@ -1,10 +1,10 @@
 # Drag Rating
 
-Drag rating is a rating view inspired of Drag Review from Book My Show app. The purpose of this library is to create simple and easy to use Drag Rating Widget which will allow you to supply custom assets.
+Drag rating is a rating view inspired of Drag Review from Book My Show app. The purpose of this library is to create simple and easy to use Drag Rating Widget with support for custom assets.
 
 ![](assets/demo.gif)
 
-To include this library you will have to add
+Include this library by adding below line to the module level `build.gradle`
 ```Gradle
 dependencies {
     implementation 'com.github.saran2020:DragRating:2.0'
@@ -21,11 +21,11 @@ dependencies {
     app:rating_space="8dp"
     app:max_rating="5" />
 ```
-`initial_rating` - Is used to set the initial rating of the file.  
-`max_rating` - Is used to set the maximum allowed number of rating. The number you provide here is the number of stars that will be drawn.  
-`rating_space` - Can be used to control the space between two star view.
+`initial_rating` - It's used to set the initial rating to the widget.  
+`max_rating` - It's used to set the maximum allowed rating. The number you provide here is the number of stars that will be drawn.  
+`rating_space` - It can be used to control the space between two star views.
 
-To get the current rating use the method `getRating()` and to set the rating use method `setRating(3.5f)`.
+Current rating can be read using `getRating()` and to set the rating use method `setRating(3.5f)`.
 
 
 To provide custom asset for the view, you need to set a `Map` with the multiplier for the asset and the asset like shown below.
