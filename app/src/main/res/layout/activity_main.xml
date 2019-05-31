@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         android:text="Default implementation (initial = 2.5, max=5)" />
 
-    <com.github.saran2020.sliderating.SlideRatingView
+    <com.github.saran2020.dragrating.DragRatingView
         android:id="@+id/slide_rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_marginTop="48dp"
         android:text="With custom assets (initial = 7.5, max=10, space = 8dp)" />
 
-    <com.github.saran2020.sliderating.SlideRatingView
+    <com.github.saran2020.dragrating.DragRatingView
         android:id="@+id/slide_rating_heart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
