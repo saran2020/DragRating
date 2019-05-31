@@ -13,7 +13,7 @@ dependencies {
 
 **layout.xml**
 ```xml
-<<com.github.saran2020.dragrating.DragRatingView
+<com.github.saran2020.dragrating.DragRatingView
     android:id="@+id/slide_rating"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
