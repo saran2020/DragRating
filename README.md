@@ -56,7 +56,7 @@ ratingView.setDrawableAssetMap(
 Callback when user is dragging the `DragRatingView`
 ```kotlin
 ratingView.callback = object : DragRatingView.RatingChangeCallback {
-    override fun onRatingChanged(previous: Float, new: Float) {
+    override fun onRatingChange(previous: Float, new: Float) {
         Log.d(TAG, "previous rating = $previous new rating = $current")
     }
 }

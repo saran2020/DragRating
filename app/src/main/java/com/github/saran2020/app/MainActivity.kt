@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         ratingTextView = findViewById(R.id.rating_text)
 
         ratingView?.callback = object : DragRatingView.RatingChangeCallback {
-            override fun onRatingChanged(previous: Float, current: Float) {
+            override fun onRatingChange(previous: Float, current: Float) {
                 ratingTextView?.text = "$current"
             }
         }
@@ -30,17 +30,19 @@ class MainActivity : AppCompatActivity() {
         ratingViewHeart = findViewById(R.id.slide_rating_heart)
         ratingTextViewHeart = findViewById(R.id.rating_text_heart)
 
-        ratingViewHeart?.setDrawableResourceAssetMap(
-            mapOf(
-                0f to R.drawable.ic_empty_filled_heart,
-                0.5f to R.drawable.ic_half_filled_heart,
-                1f to R.drawable.ic_filled_heart
+        ratingViewHeart?.apply {
+            setDrawableResourceAssetMap(
+                mapOf(
+                    0f to R.drawable.ic_empty_filled_heart,
+                    0.5f to R.drawable.ic_half_filled_heart,
+                    1f to R.drawable.ic_filled_heart
+                )
             )
-        )
 
-        ratingViewHeart?.callback = object : DragRatingView.RatingChangeCallback {
-            override fun onRatingChanged(previous: Float, current: Float) {
-                ratingTextViewHeart?.text = "$current"
+            callback = object : DragRatingView.RatingChangeCallback {
+                override fun onRatingChange(previous: Float, current: Float) {
+                    ratingTextViewHeart?.text = "$current"
+                }
             }
         }
     }

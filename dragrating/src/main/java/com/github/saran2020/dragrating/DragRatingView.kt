@@ -40,7 +40,7 @@ open class DragRatingView @JvmOverloads constructor(
             }
 
             field = newRating
-            callback?.onRatingChanged(previousRating, field)
+            callback?.onRatingChange(previousRating, field)
 
             Log.d("buggy_bug", "current rating $currentRating")
             refreshRatingView()
@@ -283,6 +283,6 @@ open class DragRatingView @JvmOverloads constructor(
     }
 
     interface RatingChangeCallback {
-        fun onRatingChanged(previous: Float, current: Float)
+        fun onRatingChange(previous: Float, current: Float)
     }
 }
