@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         ratingTextView = findViewById(R.id.rating_text)
 
         ratingView?.callback = object : DragRatingView.RatingChangeCallback {
-            override fun onRatingChanged(previous: Float, current: Float) {
+            override fun onRatingChange(previous: Float, current: Float) {
                 ratingTextView?.text = "$current"
             }
         }
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             )
 
             callback = object : DragRatingView.RatingChangeCallback {
-                override fun onRatingChanged(previous: Float, current: Float) {
+                override fun onRatingChange(previous: Float, current: Float) {
                     ratingTextViewHeart?.text = "$current"
                 }
             }
