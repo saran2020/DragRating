@@ -46,7 +46,7 @@ open class DragRatingView @JvmOverloads constructor(
             refreshRatingView()
         }
 
-    var currentRating: Float
+    var rating: Float
         get() = _currentRating
         set(value) {
             _currentRating = value

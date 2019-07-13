@@ -49,12 +49,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        val rating = ratingView?.getRating() ?: 0
+        val rating = ratingView?.rating ?: 0
         Log.d("buggy_bug", "current rating is $rating")
     }
 
     override fun onResume() {
         super.onResume()
-        ratingView?.setRating(4f)
+        ratingView?.rating = 4f
     }
 }
