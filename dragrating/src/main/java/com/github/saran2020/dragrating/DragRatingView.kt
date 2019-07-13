@@ -14,6 +14,7 @@ import android.widget.ImageView
 import java.util.SortedMap
 import kotlin.math.ceil
 import kotlin.math.floor
+import kotlin.math.min
 
 open class DragRatingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -66,31 +67,46 @@ open class DragRatingView @JvmOverloads constructor(
     // We multiply the decimal value by 100 so that we can convert the
     // decimal to ints It gives us more control on rounding off to the
     // nearest available.
-    private fun roundOffRating(value: Float): Float {
-        val decimalMultiplied = (value - floor(value)) * 100
+    private fun roundOffRating(rating: Float): Float {
+
+        // If the rating is 3.2, decimalRating will hold 0.2
+        val decimalRating = (rating - floor(rating))
+        val decimalMultiplied = decimalRating * 100
 
         val keys = assetMap.keys.toList()
-        var previous = 0
-        for (current in 1 until assetMap.size) {
-            val currentMultiple = keys[current] * 100
-            val previousMultiple = keys[previous] * 100
+        for (step in 1 until assetMap.size) {
 
-            if (decimalMultiplied > previousMultiple && decimalMultiplied < currentMultiple) {
-                val differPreviousMultiple = decimalMultiplied - previousMultiple
-                val differCurrentMultiple = currentMultiple - decimalMultiplied
+            val previousStep = step - 1
 
-                val minDifference = Math.min(differCurrentMultiple, differPreviousMultiple)
-                return when {
-                    differPreviousMultiple == differCurrentMultiple -> floor(value) + keys[current]
-                    minDifference == differPreviousMultiple -> floor(value) + keys[previous]
-                    else -> floor(value) + keys[current]
+            val currentMultiple = keys[step] * 100
+            val previousMultiple = keys[previousStep] * 100
+
+            if (previousStep == 0) {
+
+                // If it is first step return the closest key from the user supplied
+                // key value map. This is being to handle the zero rating case.
+                if (decimalMultiplied > previousMultiple && decimalMultiplied < currentMultiple) {
+                    val differPreviousMultiple = decimalMultiplied - previousMultiple
+                    val differCurrentMultiple = currentMultiple - decimalMultiplied
+
+                    val minDifference = min(differCurrentMultiple, differPreviousMultiple)
+                    return when {
+                        differPreviousMultiple == differCurrentMultiple -> floor(rating) + keys[step]
+                        minDifference == differPreviousMultiple -> floor(rating) + keys[previousStep]
+                        else -> floor(rating) + keys[step]
+                    }
+                }
+            } else {
+
+                // If it's not first step just return the next bigger key
+                // from the user supplied key value map.
+                if (currentMultiple > decimalMultiplied) {
+                    return floor(rating) + keys[step]
                 }
             }
-
-            previous = current
         }
 
-        return value
+        return rating
     }
 
     private var assetMap: SortedMap<Float, Drawable> = convertToDrawableMap(
