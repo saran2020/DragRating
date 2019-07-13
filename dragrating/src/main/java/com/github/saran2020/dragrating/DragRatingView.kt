@@ -24,7 +24,7 @@ open class DragRatingView @JvmOverloads constructor(
     private var mTouchDownX = 0f
     private var ratingSpace = 0.0f
     private var maxRating = 5
-    private var currentRating = 0f
+    private var _currentRating = 0f
         set(value) {
             if (value > maxRating) {
                 throw IllegalArgumentException("Rating cannot be more than max rating")
@@ -42,8 +42,14 @@ open class DragRatingView @JvmOverloads constructor(
             field = newRating
             callback?.onRatingChange(previousRating, field)
 
-            Log.d("buggy_bug", "current rating $currentRating")
+            Log.d("buggy_bug", "current rating $_currentRating")
             refreshRatingView()
+        }
+
+    var currentRating: Float
+        get() = _currentRating
+        set(value) {
+            _currentRating = value
         }
 
     private fun refreshRatingView() {
@@ -108,7 +114,7 @@ open class DragRatingView @JvmOverloads constructor(
             maxRating = typedArray.getInt(
                 R.styleable.DragRatingView_max_rating, 5
             )
-            currentRating = typedArray.getFloat(
+            _currentRating = typedArray.getFloat(
                 R.styleable.DragRatingView_initial_rating, 0f
             )
 
@@ -200,7 +206,7 @@ open class DragRatingView @JvmOverloads constructor(
                 val dragOnView = x - child.left
                 val ratioCross = dragOnView / child.width.toFloat()
 
-                currentRating = i + ratioCross
+                _currentRating = i + ratioCross
             }
         }
     }
@@ -241,9 +247,9 @@ open class DragRatingView @JvmOverloads constructor(
 
         imageView.setImageDrawable(
             when {
-                pos <= floor(currentRating) -> assetMap[1f]!!
-                pos == ceil(currentRating).toInt() -> {
-                    val decimal = currentRating - floor(currentRating)
+                pos <= floor(_currentRating) -> assetMap[1f]!!
+                pos == ceil(_currentRating).toInt() -> {
+                    val decimal = _currentRating - floor(_currentRating)
                     assetMap[decimal]!!
                 }
                 else -> assetMap[0f]!!
@@ -260,12 +266,6 @@ open class DragRatingView @JvmOverloads constructor(
         }
 
         return sortedMap
-    }
-
-    fun getRating(): Float = currentRating
-
-    fun setRating(rating: Float) {
-        currentRating = rating
     }
 
     fun setDrawableAssetMap(map: Map<Float, Drawable>) {
